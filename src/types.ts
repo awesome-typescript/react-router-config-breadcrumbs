@@ -1,14 +1,14 @@
 import React from 'react'
 import { RouteConfig as ReactRouteConfig } from 'react-router-config'
 
-export type Breadcrumb = {
+export type BreadcrumbProps = {
   to?: string
   title: string
   component: Function
 }
 
 type RouteSettings = {
-  breadcrumbs?: Breadcrumb[]
+  breadcrumbs?: BreadcrumbProps[]
 }
 
 export type RouteConfig = ReactRouteConfig & {

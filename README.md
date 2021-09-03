@@ -20,7 +20,19 @@ export const App = () => (
 ```
 
 ```tsx
-export type RouteConfig = RouteBreadcrumbConfig & ReactRouteConfig
+import { RouteConfig as AuthRouteConfig } from '@awesome-typescript/react-router-config-auth'
+import { RouteConfig as BreadcrumbRouteConfig } from '@awesome-typescript/react-router-config-breadcrumbs'
+import { BreadcrumbProps } from '@awesome-typescript/react-router-config-breadcrumbs'
+
+export const Breadcrumb: React.FC<BreadcrumbProps> = ({ to, title }) => (
+  <CustomBreadcrumb>
+    <Link to={to}>
+      {title}
+    </Link>
+  </CustomBreadcrumb>
+)
+
+export type RouteConfig = BreadcrumbRouteConfig & AuthRouteConfig
 
 export const routes: RouteConfig[] = [
   {

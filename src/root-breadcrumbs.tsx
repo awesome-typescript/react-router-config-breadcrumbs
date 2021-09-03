@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import { useLocation } from 'react-router-dom'
 
-import { Breadcrumb, BreadcrumbsContextProps } from './types'
+import { BreadcrumbProps, BreadcrumbsContextProps } from './types'
 import { matchBreadcrumbs } from './match-breadcrumbs'
 import { BreadcrumbsContext } from './breadcrumbs-context'
 
@@ -14,7 +14,7 @@ export const RootBreadcrumbs: React.FC = () => {
 
   return (
     <BreadcrumbTemplate>
-      {breadcrumbs.map(({ component: Component, to, title }: Breadcrumb) => (
+      {breadcrumbs.map(({ component: Component, to, title }: BreadcrumbProps) => (
         <Component key={title} to={to} title={title} />
       ))}
     </BreadcrumbTemplate>

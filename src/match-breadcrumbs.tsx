@@ -1,7 +1,7 @@
 import { MatchedRoute, matchRoutes } from 'react-router-config'
 import { Location } from 'history'
 
-import { Breadcrumb, RouteConfig } from './types'
+import { BreadcrumbProps, RouteConfig } from './types'
 
 export const matchBreadcrumbs = ({
   routes,
@@ -9,7 +9,7 @@ export const matchBreadcrumbs = ({
 }: {
   routes: RouteConfig[]
   location: Location
-}): Breadcrumb[] => {
+}): BreadcrumbProps[] => {
   const matchedRoutes = matchRoutes(routes, location.pathname)
 
   return compose(
@@ -31,7 +31,7 @@ const isBreadcrumbSettingsExists = (route: RouteConfig): boolean =>
 const flattenBreadcrumbs = (
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   routes: { route: RouteConfig; match: MatchedRoute<any> }[],
-): Breadcrumb[] => {
+): BreadcrumbProps[] => {
   return (
     routes
       .map((route) => route?.route?.settings?.breadcrumbs)
