@@ -9,7 +9,45 @@ on:
       - develop
 
 jobs:
-  build:
+  test:
+    name: Build Project
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - run: npm ci
+      - run: npm run build
+      - run: npm run test
+
+  publish_npm:
+    name: Build Project
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: 'https://registry.npmjs.org'
+
+      - run: npm ci
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm run build
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+  publish_github:
     name: Build Project
     runs-on: ubuntu-20.04
     strategy:
@@ -24,12 +62,12 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: 'https://npm.pkg.github.com'
-          scope: '@awesome-typescriptg'
+          scope: '@awesome-typescript'
 
       - run: npm ci
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_GITHUB_TOKEN }}
       - run: npm run build
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_GITHUB_TOKEN }}
