@@ -19,7 +19,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - run: npm ci
+      - run: npm i
       - run: npm run build
       - run: npm run test
 
@@ -66,8 +66,8 @@ jobs:
 
       - run: npm ci
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.DEVELOPER_GITHUB_NPM_TOKEN }}
       - run: npm run build
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.DEVELOPER_GITHUB_NPM_TOKEN }}
