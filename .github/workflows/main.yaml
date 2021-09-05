@@ -21,7 +21,7 @@ jobs:
 
       - run: npm i
       - run: npm run build
-      - run: npm run test
+      - run: npm run test:jest
 
   publish_npm:
     name: Build Project
@@ -42,6 +42,7 @@ jobs:
       - run: npm ci
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: echo //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }} >> .npmrc
       - run: npm run build
       - run: npm publish
         env:
