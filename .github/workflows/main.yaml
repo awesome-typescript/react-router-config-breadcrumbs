@@ -23,33 +23,7 @@ jobs:
       - run: npm run build
       - run: npm run test:jest
 
-  publish_npm:
-    name: Build Project
-    runs-on: ubuntu-20.04
-    strategy:
-      matrix:
-        node-version: [14.x]
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: 'https://registry.npmjs.org'
-
-      - run: npm ci
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - run: echo //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }} >> .npmrc
-      - run: cat ./.npmrc
-      - run: npm run build
-      - run: npm publish --access public --registry=https://registry.npmjs.org
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-  publish_github:
+  build:
     name: Build Project
     runs-on: ubuntu-20.04
     strategy:
