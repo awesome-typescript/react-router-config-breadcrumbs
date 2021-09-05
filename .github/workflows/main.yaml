@@ -43,8 +43,9 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: echo //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }} >> .npmrc
+      - run: cat ./.npmrc
       - run: npm run build
-      - run: npm publish
+      - run: npm publish --access public --registry=https://npm.pkg.github.com
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
